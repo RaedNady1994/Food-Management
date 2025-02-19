@@ -30,12 +30,12 @@
         </div>
 
         <div class="auth-links">
-          <a routerLink="register">Register Now?</a>
+          <a routerLink="/auth/register">Register Now?</a>
           <a type="button" style="color: green;">Forgot Password?</a>
       </div>
       
         <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
-        <button type="submit" class="btn login-btn" [disabled]="loginForm.invalid">Login</button>
+        <button type="submit" class="btn auth-btn" >Login</button>
       </form>
     </div>
   </div>

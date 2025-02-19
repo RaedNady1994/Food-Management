@@ -26,14 +26,20 @@ export class LoginComponent {
   get password() { return this.loginForm.get('password'); }
 
   sendData() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      
+      this.errorMessage = 'Please insert valid data';
+        this.toastr.error( this.errorMessage, 'Error');
 
-    const loginData: LoginRequest = this.loginForm.value; // ✅ Use LoginRequest interface
+      return;
+    }
+
+    const loginData: LoginRequest = this.loginForm.value; 
 
     this.authService.login(loginData).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
-        this.toastr.success('Registration Successful!', 'Success');
+        this.toastr.success('Login  Successful!', 'Success');
       },
       error: (err) => {
          
