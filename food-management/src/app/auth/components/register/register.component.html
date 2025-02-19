@@ -1,35 +1,40 @@
-<div class="auth-box wide">
-  <div class="logo">
-    <img src="../../assets/images/logo.svg" alt="Your Company Logo">
-  </div>
-  <div class="auth-form">
-    <div class="title">
-      <h2>Register</h2>
-      <p>Create your account</p>
+<div class="d-flex justify-content-center">
+  <div class="auth-box col-6">
+      <div class="text-center">
+        <img src="../../assets/images/logo.svg" alt="Your Company Logo">
+      </div>
+      <div class="auth-form">
+        <div>
+          <h2>Log In</h2>
+          <p>Welcome Back! Please enter your details</p>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="sendData()">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-mobile-screen"></i></span>
+            <input type="text" class="form-control" placeholder="Enter your Email" formControlName="email">
+          </div>
+  
+          <span *ngIf="email?.invalid && email?.touched" class="text-danger">
+            <small *ngIf="email?.errors?.['required']">Email is required.</small>
+            <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+          </span> 
+  
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+            <input [type]="isHide ? 'password' : 'text'" class="form-control" placeholder="Password" formControlName="password">
+            <a type="button" class="input-group-text" (click)="isHide = !isHide">
+              <i class="fa-solid" [class.fa-eye-slash]="isHide" [class.fa-eye]="!isHide"></i>
+            </a>
+          </div>
+          <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+            <small *ngIf="password?.errors?.['required']">Password is required.</small>
+            <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</small>
+          </div>
+        
+          <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+          <button type="submit" class="btn login-btn" [disabled]="loginForm.invalid">Login</button>
+        </form>
+      </div>
     </div>
-    <form>
-      <div class="input-group">
-        <span class="input-group-text">
-          <i class="fa-solid fa-user"></i>
-        </span>
-        <input type="text" class="form-control" placeholder="Full Name">
-      </div>
-      <div class="input-group">
-        <span class="input-group-text">
-          <i class="fa-solid fa-envelope"></i>
-        </span>
-        <input type="email" class="form-control" placeholder="Enter your Email">
-      </div>
-      <div class="input-group">
-        <span class="input-group-text">
-          <i class="fa-solid fa-lock"></i>
-        </span>
-        <input type="password" class="form-control" placeholder="Create Password">
-      </div>
-      <div class="auth-links">
-        <a href="">Already have an account?</a>
-      </div>
-      <button class="btn register-btn">Register</button>
-    </form>
-  </div>
-</div>
+    </div>
+    
