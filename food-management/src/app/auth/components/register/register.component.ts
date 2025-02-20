@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { RegisterRequest } from '../../models/auth.models';
+import { RegisterRequest } from '../../interfaces/auth.interfaces';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
