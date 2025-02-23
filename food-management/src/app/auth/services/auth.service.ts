@@ -7,24 +7,31 @@ import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://upskilling-egypt.com:3006';
+  private baseUrl = 'http://upskilling-egypt.com:3006/api/v1';
 
   constructor(private http: HttpClient) {}
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/api/v1/Users/login`, credentials);
+    return this.http.post<LoginResponse>(`${this.baseUrl}/Users/login`, credentials);
   }
 
   register(userData: RegisterRequest): Observable<RegisterResponse> {
-    const formData = new FormData();
-    formData.append('userName', userData.userName);
-    formData.append('email', userData.email);
-    formData.append('country', userData.country);
-    formData.append('phoneNumber', userData.phoneNumber);
-    formData.append('password', userData.password);
-    formData.append('confirmPassword', userData.confirmPassword);
-    formData.append('profileImage', userData.profileImage);
-
-    return this.http.post<RegisterResponse>(`${this.baseUrl}/api/v1/Users/Register`, formData);
-  }
+    const formData = this.createFormData<RegisterRequest>(userData);
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/Users/Register`, formData);
 }
+
+createFormData<T extends Record<string, any>>(data: T): FormData {
+  const formData = new FormData();
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (value != null) {
+      formData.append(key, value instanceof File || value instanceof Blob ? value : String(value));
+    }
+  });
+
+  return formData;
+}
+
+
+}
+
