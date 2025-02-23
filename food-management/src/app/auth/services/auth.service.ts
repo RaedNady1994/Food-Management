@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../interfaces/auth.interfaces';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, VerifyRequest } from '../interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://upskilling-egypt.com:3006/api/v1';
+  private baseUrl = 'https://upskilling-egypt.com:3006/api/v1';
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +18,10 @@ export class AuthService {
   register(userData: RegisterRequest): Observable<RegisterResponse> {
     const formData = this.createFormData<RegisterRequest>(userData);
     return this.http.post<RegisterResponse>(`${this.baseUrl}/Users/Register`, formData);
+}
+
+verify(credentials: VerifyRequest): Observable<LoginResponse> {
+  return this.http.put<LoginResponse>(`${this.baseUrl}/Users/verify`, credentials);
 }
 
 createFormData<T extends Record<string, any>>(data: T): FormData {

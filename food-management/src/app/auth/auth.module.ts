@@ -8,13 +8,15 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthComponent } from './components/auth.component';
 import { AuthService } from './services/auth.service';
+import { VerifyComponent } from './components/verify/verify.component';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    VerifyComponent
   ],
   imports: [
     CommonModule,

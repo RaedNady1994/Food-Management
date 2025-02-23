@@ -10,13 +10,16 @@
 }
 
 .auth-btn {
-    background-color: green;
+    background-color: #4AA35A;
     color: white;
     font-weight: bold;
-    margin: 10px 0px;
+    margin: 20px 0px;
     padding: 10px;
-    border: red 3px solid;
     width: 100%;
     border-radius: 5px;
-    border: none;
+    
+    &:hover{
+        background-color: green;
+        color: white;
+    }
 }

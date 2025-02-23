@@ -20,7 +20,6 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isHide = true;
   isHideConfirm = true;
-  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -83,24 +82,26 @@ export class RegisterComponent {
 
   sendData() {
     if (this.registerForm.invalid) {
-      this.errorMessage = 'Please fix the errors before submitting.';
+      this.toastr.error('Please fix the errors before submitting.', 'Error');
       return;
     }
 
     this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
         this.toastr.success(response.message, 'Success');
+        this.router.navigateByUrl('/auth/verify');
       },
       error: (errorResponse) => {
+       let errorMessage = "";
         if (errorResponse.error?.additionalInfo?.errors) {
           const errors = errorResponse.error.additionalInfo.errors;
-
-          this.errorMessage = Object.values(errors).flat().join(' ');
-        } else {
-          this.errorMessage = errorResponse.error?.message;
+          errorMessage = Object.values(errors).flat().join(' ');
+        } 
+        else {
+          errorMessage = errorResponse.error?.message;
         }
 
-        this.toastr.error(this.errorMessage, 'Error');
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }

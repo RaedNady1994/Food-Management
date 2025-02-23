@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   loginForm: FormGroup;
   isHide = true;
-  errorMessage = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
@@ -28,8 +27,7 @@ export class LoginComponent {
   sendData() {
     if (this.loginForm.invalid) {
       
-      this.errorMessage = 'Please insert valid data';
-        this.toastr.error( this.errorMessage, 'Error');
+        this.toastr.error( 'Please insert valid data', 'Error');
 
       return;
     }
@@ -42,9 +40,7 @@ export class LoginComponent {
         this.toastr.success('Login  Successful!', 'Success');
       },
       error: (err) => {
-         
-        this.errorMessage = err.error.message + ', Please try again.';
-        this.toastr.error( this.errorMessage, 'Error');
+        this.toastr.error( err.error.message + ', Please try again.', 'Error');
 
       }
     });
