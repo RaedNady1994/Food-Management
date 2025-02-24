@@ -24,7 +24,15 @@ verify(credentials: VerifyRequest): Observable<LoginResponse> {
   return this.http.put<LoginResponse>(`${this.baseUrl}/Users/verify`, credentials);
 }
 
-createFormData<T extends Record<string, any>>(data: T): FormData {
+getToken(){
+  return localStorage.getItem('userToken');
+}
+
+isAuthenticated(){
+  return this.getToken() !== null;
+}
+
+private createFormData<T extends Record<string, any>>(data: T): FormData {
   const formData = new FormData();
 
   Object.entries(data).forEach(([key, value]) => {
