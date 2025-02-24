@@ -42,7 +42,6 @@ export class LoginComponent {
       },
       error: (err) => {
         this.toastr.error( err.error.message + ', Please try again.', 'Error');
-
       }
     });
   }
