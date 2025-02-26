@@ -1,0 +1,37 @@
+section {
+    background-color: rgba(31, 38, 62, 1);
+   
+    border-top-right-radius: 58px;
+    height: 100vh;
+
+    ul {
+        list-style-type: none;
+        padding: 0px;
+
+        li {
+            padding: 5px;
+            background-color: transparent;
+            a{
+                padding: 5px;
+                color: rgba(255, 255, 255, 1);
+                height: 40px;
+                text-decoration: none;
+            }
+        }
+    }
+    .active{
+        display: block;
+        background-color: rgba(0, 146, 77, 0.1);
+        position: relative;
+        height: 40px;
+        &::before{
+            content: "";
+            border: 3px solid rgba(0, 146, 71, 1);
+            height: 99%;
+            width: 4px;
+            position: absolute;
+            top: 0px;
+            left:-5px;
+        }
+    }
+}

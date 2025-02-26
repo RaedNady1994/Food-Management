@@ -1,1 +1,19 @@
-<p>sidebar works!</p>
+<section>
+    <div>
+        <img src="../../../assets/images/image-without-text.png" class="w-75 mx-auto">
+
+    </div>
+    <ul>
+
+        <li *ngFor="let item of navItems">
+            <ng-container *ngIf="item.isActive">
+                <a [routerLink]="[item.path]" routerLinkActive="active">
+                    <span><i [class]="item.icon"></i></span>
+                    <span class="mx-2">{{ item.label }}</span>
+                </a>
+            </ng-container>
+        </li>
+
+    </ul>
+
+</section>
