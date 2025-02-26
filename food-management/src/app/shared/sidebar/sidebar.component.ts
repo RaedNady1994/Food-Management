@@ -8,44 +8,47 @@ import { NavItem } from './NavItem';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  navItems!: NavItem[];
   private role: string = '';
   constructor(authService: AuthService) {
     this.role = authService.getRole();
+    this.initiateSideBar();
   }
 
-  navItems: NavItem[] = [
-    {
-      path: '/dashboard',
-      icon: 'fa-solid fa-home',
-      label: 'Home',
-      isActive: this.isAdmin(),
-    },
-    {
-      path: '/users',
-      icon: 'fa-solid fa-users',
-      label: 'Users',
-      isActive: this.isAdmin(),
-    },
-    {
-      path: '/recipes',
-      icon: 'fa-solid fa-utensils',
-      label: 'Recipe',
-      isActive: this.isAdmin(),
-    },
-    {
-      path: '/categories',
-      icon: 'fa-solid fa-list',
-      label: 'Categories',
-      isActive: this.isAdmin(),
-    },
-  ];
+  private initiateSideBar() {
+    this.navItems = [
+      {
+        path: '/dashboard',
+        icon: 'fa-solid fa-home',
+        label: 'Home',
+        isActive: this.isAdmin(),
+      },
+      {
+        path: '/users',
+        icon: 'fa-solid fa-users',
+        label: 'Users',
+        isActive: this.isAdmin(),
+      },
+      {
+        path: '/recipes',
+        icon: 'fa-solid fa-utensils',
+        label: 'Recipe',
+        isActive: this.isAdmin(),
+      },
+      {
+        path: '/categories',
+        icon: 'fa-solid fa-list',
+        label: 'Categories',
+        isActive: this.isAdmin(),
+      },
+    ];
+  }
 
   private isAdmin(): boolean {
-    return this.role === 'SuperAdmin';
+    return this.role === 'SystemUser';
+    // return this.role === 'SuperAdmin';
   }
   private isUser(): boolean {
     return this.role === 'SystemUser';
   }
 }
-
-
