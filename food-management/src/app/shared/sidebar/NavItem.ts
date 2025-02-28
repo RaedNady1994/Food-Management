@@ -2,5 +2,5 @@ export interface NavItem {
   path: string;
   icon: string;
   label: string;
-  isActive: boolean;
+  isVisible: boolean;
 }

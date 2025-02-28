@@ -6,7 +6,7 @@
     <ul>
 
         <li *ngFor="let item of navItems">
-            <ng-container *ngIf="item.isActive">
+            <ng-container *ngIf="item.isVisible">
                 <a [routerLink]="[item.path]" routerLinkActive="active">
                     <span><i [class]="item.icon"></i></span>
                     <span class="mx-2">{{ item.label }}</span>

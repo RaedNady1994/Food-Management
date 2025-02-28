@@ -21,32 +21,31 @@ export class SidebarComponent {
         path: '/dashboard',
         icon: 'fa-solid fa-home',
         label: 'Home',
-        isActive: this.isAdmin(),
+        isVisible: true,
       },
       {
         path: '/users',
         icon: 'fa-solid fa-users',
         label: 'Users',
-        isActive: this.isAdmin(),
+        isVisible: this.isAdmin(),
       },
       {
         path: '/recipes',
         icon: 'fa-solid fa-utensils',
         label: 'Recipe',
-        isActive: this.isAdmin(),
+        isVisible: this.isAdmin(),
       },
       {
         path: '/categories',
         icon: 'fa-solid fa-list',
         label: 'Categories',
-        isActive: this.isAdmin(),
+        isVisible: this.isAdmin(),
       },
     ];
   }
 
   private isAdmin(): boolean {
-    return this.role === 'SystemUser';
-    // return this.role === 'SuperAdmin';
+    return this.role === 'SuperAdmin';
   }
   private isUser(): boolean {
     return this.role === 'SystemUser';
