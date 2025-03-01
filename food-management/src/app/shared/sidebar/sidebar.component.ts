@@ -30,13 +30,13 @@ export class SidebarComponent {
         isVisible: this.isAdmin(),
       },
       {
-        path: '/recipes',
+        path: 'admin/recipes',
         icon: 'fa-solid fa-utensils',
         label: 'Recipe',
         isVisible: this.isAdmin(),
       },
       {
-        path: '/categories',
+        path: 'admin/categories',
         icon: 'fa-solid fa-list',
         label: 'Categories',
         isVisible: this.isAdmin(),
