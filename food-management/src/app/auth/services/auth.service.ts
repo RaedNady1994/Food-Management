@@ -14,14 +14,11 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://upskilling-egypt.com:3006/api/v1';
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
-      `${this.baseUrl}/Users/login`,
+      `Users/login`,
       credentials
     );
   }
@@ -29,14 +26,14 @@ export class AuthService {
   register(userData: RegisterRequest): Observable<RegisterResponse> {
     const formData = this.createFormData<RegisterRequest>(userData);
     return this.http.post<RegisterResponse>(
-      `${this.baseUrl}/Users/Register`,
+      `Users/Register`,
       formData
     );
   }
 
   verify(credentials: VerifyRequest): Observable<LoginResponse> {
     return this.http.put<LoginResponse>(
-      `${this.baseUrl}/Users/verify`,
+      `Users/verify`,
       credentials
     );
   }
@@ -49,13 +46,15 @@ export class AuthService {
     return this.getToken() !== null;
   }
 
+  setTokenData(token: string) {
+    let decoded: any = jwtDecode(token);
+    let role = decoded.userGroup;
+    localStorage.setItem('userToken', token);
+    localStorage.setItem('role', role);
+  }
+
   getRole(): string {
-    let token: any = this.getToken();
-    if (token !== null) {
-      let decoded: any = jwtDecode(token);
-      return decoded.userGroup;
-    }
-    return '';
+    return localStorage.getItem('role')??'';
   }
 
   private createFormData<T extends Record<string, any>>(data: T): FormData {

@@ -36,7 +36,8 @@ export class LoginComponent {
 
     this.authService.login(loginData).subscribe({
       next: (response) => {
-        localStorage.setItem('userToken', response.token);
+       
+        this.authService.setTokenData(response.token);
         this.toastr.success('Login Successful!', 'Success');
         this.router.navigate(['/dashboard']);
       },

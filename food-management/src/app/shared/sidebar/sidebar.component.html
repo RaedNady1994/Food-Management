@@ -7,13 +7,13 @@
 
         <li *ngFor="let item of navItems">
             <ng-container *ngIf="item.isVisible">
-                <a [routerLink]="[item.path]" routerLinkActive="active">
+                <a [routerLink]="[item.path]" routerLinkActive="active"
+                 [routerLinkActiveOptions]="{exact: true}">
                     <span><i [class]="item.icon"></i></span>
-                    <span class="mx-2">{{ item.label }}</span>
+                    <span class="mx-1">{{ item.label }}</span>
                 </a>
             </ng-container>
         </li>
-
     </ul>
 
 </section>

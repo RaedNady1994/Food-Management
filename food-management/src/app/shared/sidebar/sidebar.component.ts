@@ -18,13 +18,13 @@ export class SidebarComponent {
   private initiateSideBar() {
     this.navItems = [
       {
-        path: '/dashboard',
+        path: '/dashboard/home',
         icon: 'fa-solid fa-home',
         label: 'Home',
         isVisible: true,
       },
       {
-        path: '/users',
+        path: 'admin/users',
         icon: 'fa-solid fa-users',
         label: 'Users',
         isVisible: this.isAdmin(),

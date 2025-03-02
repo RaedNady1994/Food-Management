@@ -1,6 +1,5 @@
 section {
     background-color: rgba(31, 38, 62, 1);
-   
     border-top-right-radius: 58px;
     height: 100vh;
 
@@ -9,16 +8,21 @@ section {
         padding: 0px;
 
         li {
-            padding: 5px;
+            padding: 5px 1px 5px 5px;
             background-color: transparent;
+            :hover{
+                background-color: #17c26a;
+            }
             a{
                 padding: 5px;
                 color: rgba(255, 255, 255, 1);
                 height: 40px;
                 text-decoration: none;
+                display: inline-block;
+                width: 100%;
             }
         }
-    }
+    
     .active{
         display: block;
         background-color: rgba(0, 146, 77, 0.1);
@@ -33,5 +37,6 @@ section {
             top: 0px;
             left:-5px;
         }
+    }
     }
 }
