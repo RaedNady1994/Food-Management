@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { ListCategoryComponent } from './components/list-category/list-category.component';
-import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AddEditCategoryComponent } from './components/add-edit-category/add-edit-category.component';
 
 
 @NgModule({
   declarations: [
     ListCategoryComponent,
-    AddCategoryComponent
+    AddEditCategoryComponent,
   ],
   imports: [
     CommonModule,
-    CategoriesRoutingModule
+    CategoriesRoutingModule,
+    SharedModule
   ]
 })
 export class CategoriesModule { }
