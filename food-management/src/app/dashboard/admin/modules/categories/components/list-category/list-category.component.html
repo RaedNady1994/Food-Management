@@ -1,71 +1,66 @@
 <section>
     <div class="page-title">
-        <div class="container">
-            <div class="row align-content-center justify-content-center">
-                <div class="col-md-8 p-4">
-                    <div>
-                        <h1> Categories <span>Item</span> </h1>
-                        <p>
-                            You can now add your items that any user can order
-                            it from the Application and you can edit
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-end">
-                    <img src="../../../../../../../assets/images/eating-avatar.svg">
-                </div>
-            </div>
+      <div class="container">
+        <div class="row align-content-center justify-content-center">
+          <div class="col-md-8 p-4">
+            <h1> Categories <span>Item</span> </h1>
+            <p>You can add items that users can order and edit them as needed.</p>
+          </div>
+          <div class="col-md-4 text-end">
+            <img src="assets/images/eating-avatar.svg" alt="Eating Avatar">
+          </div>
         </div>
+      </div>
     </div>
-
+  
     <div class="row align-content-center justify-content-between mt-2">
-        <div class="col-4">
-            <h3>Categories Table Details</h3>
-            <p>You can check all details</p>
-        </div>
-        <div class="col-4 text-end">
-            <button class="btn btn-success w-auto add" (click)="openAddEditCategoryDialog()">
-                <mat-icon>add_circle</mat-icon> Add New Category
-            </button>
-        </div>
+      <div class="col-4">
+        <h3>Categories Table</h3>
+        <p>View category details below</p>
+      </div>
+      <div class="col-4 text-end">
+        <button class="btn btn-success" (click)="openAddCategoryDialog()">
+          <mat-icon>add_circle</mat-icon> Add New Category
+        </button>
+      </div>
     </div>
-
+  
     <div class="row">
-        <table class="table table-striped table-bordered w100">
-            <thead>
-                <th>Name</th>
-                <th>Creation Date</th>
-                <th>Modification Date</th>
-                <th>Action</th>
-            </thead>
-            <ng-container *ngIf="getCategoriesResponse">
-                <tbody>
-                    <tr *ngFor="let category of getCategoriesResponse.data">
-                        <td>{{category.name}}</td>
-                        <td>{{category.creationDate | date}}</td>
-                        <td>{{category.modificationDate | date}}</td>
-                        <td>
-                            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Actions">
-                                <mat-icon>more_vert</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
-                                    <mat-icon>visibility</mat-icon>
-                                    <span>View</span>
-                                </button>
-                                <button mat-menu-item>
-                                    <mat-icon>edit</mat-icon>
-                                    <span>Edit</span>
-                                </button>
-                                <button mat-menu-item>
-                                    <mat-icon>delete</mat-icon>
-                                    <span>Delete</span>
-                                </button>
-                            </mat-menu>
-                        </td>
-                    </tr>
-                </tbody>
-            </ng-container>
-        </table>
+      <table class="table table-striped table-bordered w-100">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Creation Date</th>
+            <th>Modification Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <ng-container *ngIf="categoriesResponse">
+          <tbody>
+            <tr *ngFor="let category of categoriesResponse.data">
+              <td>{{ category.name }}</td>
+              <td>{{ category.creationDate | date }}</td>
+              <td>{{ category.modificationDate | date }}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Actions">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="openViewCategoryDialog(category)">
+                    <mat-icon>visibility</mat-icon> <span>View</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditCategoryDialog(category)">
+                    <mat-icon>edit</mat-icon> <span>Edit</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>delete</mat-icon> <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
     </div>
-</section>
+  </section>
+  
