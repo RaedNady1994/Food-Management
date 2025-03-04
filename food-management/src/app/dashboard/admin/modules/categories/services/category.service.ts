@@ -13,7 +13,7 @@ export class CategoryService {
 
   getCategories(request: IGetCategoriesRequest): Observable<IPagedResponse<ICategoriesResponse>> {
     return this.http.get<IPagedResponse<ICategoriesResponse>>(
-      `Category/?page=${request.page}&size=${request.size}`
+      `Category/?pageNumber=${request.pageNumber}&pageSize=${request.pageSize}`
     );
   }
 

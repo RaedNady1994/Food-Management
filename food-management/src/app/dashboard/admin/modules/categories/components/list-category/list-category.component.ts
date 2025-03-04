@@ -1,11 +1,15 @@
-import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
-import { ICategoriesResponse, IGetCategoriesRequest } from '../../interfaces/icategory';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../services/category.service';
-import { IPagedResponse } from 'src/app/core/interfaces/ipaged-response';
-import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
+import {
+  ICategoriesResponse,
+  IGetCategoriesRequest,
+} from '../../interfaces/icategory';
 import { MatDialog } from '@angular/material/dialog';
+import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 import { DeleteItemComponent } from 'src/app/shared/delete-item/delete-item.component';
+import { PageEvent } from '@angular/material/paginator';
+import { IPagedResponse } from 'src/app/core/interfaces/ipaged-response';
 
 @Component({
   selector: 'app-list-category',
@@ -13,17 +17,16 @@ import { DeleteItemComponent } from 'src/app/shared/delete-item/delete-item.comp
   styleUrls: ['./list-category.component.scss'],
 })
 export class ListCategoryComponent implements OnInit {
-  categoriesParams: IGetCategoriesRequest = {
-    page: 1,
-    size: 10,
-  };
-
   categoriesResponse!: IPagedResponse<ICategoriesResponse>;
+  length = 0;
+  pageSize = 10;
+  pageIndex = 1;
+  pageSizeOptions = [10, 25, 50];
 
   constructor(
     private categoryService: CategoryService,
-    private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -31,14 +34,29 @@ export class ListCategoryComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoryService.getCategories(this.categoriesParams).subscribe({
+    
+    let paginationRequest: IGetCategoriesRequest = {
+      pageNumber: this.pageIndex,
+      pageSize: this.pageSize,
+    };
+    this.categoryService.getCategories(paginationRequest).subscribe({
       next: (res) => {
         this.categoriesResponse = res;
+        this.length = res.totalNumberOfRecords; 
       },
       error: (err) => {
-        this.toastr.error(err.error?.message || 'Failed to load categories', 'Error');
+        this.toastr.error(
+          err?.error?.message || 'Failed to load categories',
+          'Error'
+        );
       },
     });
+  }
+
+  handlePageEvent(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadCategories(); 
   }
 
   openAddCategoryDialog(): void {
@@ -59,10 +77,13 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.addCategory({ name }).subscribe({
       next: () => {
         this.toastr.success('Category created successfully', 'Success');
-        this.loadCategories();
+        this.loadCategories(); 
       },
       error: (err) => {
-        this.toastr.error(err?.error?.message || 'Error adding category', 'Error');
+        this.toastr.error(
+          err?.error?.message || 'Error adding category',
+          'Error'
+        );
       },
     });
   }
@@ -85,19 +106,14 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.updateCategory(id, data).subscribe({
       next: () => {
         this.toastr.success('Category updated successfully', 'Success');
-        this.loadCategories();
+        this.loadCategories(); 
       },
       error: (err) => {
-        this.toastr.error(err?.error?.message || 'Error updating category', 'Error');
+        this.toastr.error(
+          err?.error?.message || 'Error updating category',
+          'Error'
+        );
       },
-    });
-  }
-
-  openViewCategoryDialog(category: ICategoriesResponse): void {
-    const dialogRef = this.dialog.open(AddEditCategoryComponent, {
-      width: '50%',
-      minWidth: '350px',
-      data: { name: category.name, isReadOnly: true },
     });
   }
 
@@ -105,9 +121,7 @@ export class ListCategoryComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteItemComponent, {
       width: '50%',
       minWidth: '350px',
-      enterAnimationDuration:'1000ms',
-      exitAnimationDuration:'500ms',
-      data: { elementType: 'Category', elementName: category.name},
+      data: { elementType: 'Category', elementName: category.name },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -120,13 +134,23 @@ export class ListCategoryComponent implements OnInit {
   deleteCategory(id: number): void {
     this.categoryService.deleteCategory(id).subscribe({
       next: () => {
-        this.toastr.success('Category delete successfully', 'Success');
-        this.loadCategories();
+        this.toastr.success('Category deleted successfully', 'Success');
+        this.loadCategories(); 
       },
       error: (err) => {
-        this.toastr.error(err?.error?.message || 'Error deleting category', 'Error');
+        this.toastr.error(
+          err?.error?.message || 'Error deleting category',
+          'Error'
+        );
       },
     });
   }
-  
+
+  openViewCategoryDialog(category: ICategoriesResponse): void {
+    const dialogRef = this.dialog.open(AddEditCategoryComponent, {
+      width: '50%',
+      minWidth: '350px',
+      data: { name: category.name, isReadOnly: true },
+    });
+  }
 }

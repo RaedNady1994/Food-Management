@@ -6,6 +6,6 @@ export interface ICategoriesResponse {
   }
   
   export interface IGetCategoriesRequest{
-    page: number;
-    size: number;
+    pageNumber : number;
+    pageSize : number;
   }
