@@ -10,8 +10,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteItemComponent } from './delete-item/delete-item.component';
 
-let declarationsArray = [SidebarComponent, NavbarComponent];
+let declarationsArray = [SidebarComponent, NavbarComponent, DeleteItemComponent];
 let importsArray = [
   MatIconModule,
   MatMenuModule,

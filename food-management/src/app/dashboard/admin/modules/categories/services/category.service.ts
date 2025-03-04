@@ -24,4 +24,7 @@ export class CategoryService {
   updateCategory(id: number, data: { name: string }): Observable<ICategoriesResponse> {
     return this.http.put<ICategoriesResponse>(`Category/${id}`, data);
   }
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete<any>(`Category/${id}`);
+  }
 }

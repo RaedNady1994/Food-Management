@@ -5,6 +5,7 @@ import { CategoryService } from '../../services/category.service';
 import { IPagedResponse } from 'src/app/core/interfaces/ipaged-response';
 import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteItemComponent } from 'src/app/shared/delete-item/delete-item.component';
 
 @Component({
   selector: 'app-list-category',
@@ -99,4 +100,33 @@ export class ListCategoryComponent implements OnInit {
       data: { name: category.name, isReadOnly: true },
     });
   }
+
+  openDeleteCategoryDialog(category: ICategoriesResponse): void {
+    const dialogRef = this.dialog.open(DeleteItemComponent, {
+      width: '50%',
+      minWidth: '350px',
+      enterAnimationDuration:'1000ms',
+      exitAnimationDuration:'500ms',
+      data: { elementType: 'Category', elementName: category.name},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.elementName) {
+        this.deleteCategory(category.id);
+      }
+    });
+  }
+
+  deleteCategory(id: number): void {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.toastr.success('Category delete successfully', 'Success');
+        this.loadCategories();
+      },
+      error: (err) => {
+        this.toastr.error(err?.error?.message || 'Error deleting category', 'Error');
+      },
+    });
+  }
+  
 }
