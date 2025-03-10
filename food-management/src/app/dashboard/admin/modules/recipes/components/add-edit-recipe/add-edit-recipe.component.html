@@ -1,0 +1,52 @@
+<form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()" class="w-75 mx-auto">
+  <mat-form-field class="w-100">
+    <mat-label>Recipe Name</mat-label>
+    <input matInput formControlName="name" placeholder="Enter recipe name">
+    <mat-error *ngIf="recipeForm.get('name')?.invalid">Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Enter description"></textarea>
+    <mat-error *ngIf="recipeForm.get('description')?.invalid">Description is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" formControlName="price" placeholder="Enter price">
+    <mat-error *ngIf="recipeForm.get('price')?.invalid">Valid price is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Tag</mat-label>
+    <mat-select formControlName="tagId">
+      <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">
+        {{ tag.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="recipeForm.get('tagId')?.invalid">Tag is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Categories</mat-label>
+    <mat-select formControlName="categoriesIds" multiple>
+      <mat-option *ngFor="let category of (categories$ | async)?.data" [value]="category.id">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="recipeForm.get('categoriesIds')?.invalid">Select at least one category</mat-error>
+  </mat-form-field>
+ 
+  <ngx-dropzone (change)="onSelect($event)">
+    
+    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" 
+    *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+    </ngx-dropzone-image-preview>
+
+    
+  </ngx-dropzone>
+    
+  <mat-error *ngIf="recipeForm.get('recipeImage')?.invalid">Image is required</mat-error>
+
+  <button  class="btn btn-success" type="submit">Create Recipe</button>
+</form>

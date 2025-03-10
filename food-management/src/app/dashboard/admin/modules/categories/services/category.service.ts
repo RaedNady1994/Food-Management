@@ -11,20 +11,20 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getCategories(request: IGetCategoriesRequest): Observable<IPagedResponse<ICategoriesResponse>> {
+  get(request: IGetCategoriesRequest): Observable<IPagedResponse<ICategoriesResponse>> {
     return this.http.get<IPagedResponse<ICategoriesResponse>>(
       `Category/?pageNumber=${request.pageNumber}&pageSize=${request.pageSize}`
     );
   }
 
-  addCategory(data: { name: string }): Observable<ICategoriesResponse> {
+  add(data: { name: string }): Observable<ICategoriesResponse> {
     return this.http.post<ICategoriesResponse>(`Category/`, data);
   }
 
-  updateCategory(id: number, data: { name: string }): Observable<ICategoriesResponse> {
+  update(id: number, data: { name: string }): Observable<ICategoriesResponse> {
     return this.http.put<ICategoriesResponse>(`Category/${id}`, data);
   }
-  deleteCategory(id: number): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete<any>(`Category/${id}`);
   }
 }

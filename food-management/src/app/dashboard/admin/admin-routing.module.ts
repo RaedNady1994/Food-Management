@@ -10,6 +10,14 @@ const routes: Routes = [
         (m) => m.CategoriesModule
       ),
   },
+
+  {
+    path: 'recipes',
+    loadChildren: () =>
+      import('./modules/recipes/recipes.module').then(
+        (m) => m.RecipesModule
+      ),
+  },
 ];
 
 @NgModule({

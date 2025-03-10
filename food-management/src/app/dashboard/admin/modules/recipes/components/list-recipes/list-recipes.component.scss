@@ -1,0 +1,23 @@
+.page-title {
+    background-image: url('/assets/images/circles-header-bg.svg');
+    background-repeat: no-repeat;
+    background-color: #009247;
+    border-radius: 15px;
+    color: white;
+
+    span {
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+.add {
+    background-color: rgba(0, 146, 71, 1);
+    color: white;
+}
+
+.mat-paginator {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}

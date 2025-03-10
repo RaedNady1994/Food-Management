@@ -20,7 +20,7 @@ export class ListCategoryComponent implements OnInit {
   categoriesResponse!: IPagedResponse<ICategoriesResponse>;
   length = 0;
   pageSize = 10;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSizeOptions = [10, 25, 50];
 
   constructor(
@@ -39,7 +39,7 @@ export class ListCategoryComponent implements OnInit {
       pageNumber: this.pageIndex,
       pageSize: this.pageSize,
     };
-    this.categoryService.getCategories(paginationRequest).subscribe({
+    this.categoryService.get(paginationRequest).subscribe({
       next: (res) => {
         this.categoriesResponse = res;
         this.length = res.totalNumberOfRecords; 
@@ -74,7 +74,7 @@ export class ListCategoryComponent implements OnInit {
   }
 
   addCategory(name: string): void {
-    this.categoryService.addCategory({ name }).subscribe({
+    this.categoryService.add({ name }).subscribe({
       next: () => {
         this.toastr.success('Category created successfully', 'Success');
         this.loadCategories(); 
@@ -103,7 +103,7 @@ export class ListCategoryComponent implements OnInit {
   }
 
   updateCategory(id: number, data: { name: string }): void {
-    this.categoryService.updateCategory(id, data).subscribe({
+    this.categoryService.update(id, data).subscribe({
       next: () => {
         this.toastr.success('Category updated successfully', 'Success');
         this.loadCategories(); 
@@ -132,7 +132,7 @@ export class ListCategoryComponent implements OnInit {
   }
 
   deleteCategory(id: number): void {
-    this.categoryService.deleteCategory(id).subscribe({
+    this.categoryService.delete(id).subscribe({
       next: () => {
         this.toastr.success('Category deleted successfully', 'Success');
         this.loadCategories(); 
