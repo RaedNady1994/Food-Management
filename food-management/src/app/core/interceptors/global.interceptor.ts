@@ -5,14 +5,15 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { LoaderService } from 'src/app/shared/loader.service';
 
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
   private baseUrl = 'https://upskilling-egypt.com:3006/api/v1/';
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private loaderService: LoaderService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -23,6 +24,10 @@ export class GlobalInterceptor implements HttpInterceptor {
       url: request.url.indexOf('/files/') > -1 ? request.url : `${this.baseUrl}${request.url}`,
       setHeaders: { Authorization: `Bearer ${token}` },
     });
-    return next.handle(clonedRequest);
+    this.loaderService.show(); 
+    return next.handle(clonedRequest).pipe(
+      finalize(() => {
+        this.loaderService.hide();
+      }));
   }
 }
