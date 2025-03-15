@@ -98,7 +98,7 @@
                     <button mat-menu-item>
                       <mat-icon>visibility</mat-icon> <span>View</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item [routerLink]="['edit', recipe.id]" >
                       <mat-icon>edit</mat-icon> <span>Edit</span>
                     </button>
                     <button class="text-danger" mat-menu-item>

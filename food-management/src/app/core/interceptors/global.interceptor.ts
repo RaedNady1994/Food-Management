@@ -20,7 +20,7 @@ export class GlobalInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = this.auth.getToken();
     const clonedRequest = request.clone({
-      url: `${this.baseUrl}${request.url}`,
+      url: request.url.indexOf('/files/') > -1 ? request.url : `${this.baseUrl}${request.url}`,
       setHeaders: { Authorization: `Bearer ${token}` },
     });
     return next.handle(clonedRequest);

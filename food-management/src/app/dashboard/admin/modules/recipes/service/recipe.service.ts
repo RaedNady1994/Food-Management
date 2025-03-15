@@ -27,6 +27,11 @@ export class RecipeService {
     });
   }
 
+  getById(id: number | null  ): Observable<IRecipesResponse> {
+
+    return this.http.get<IRecipesResponse>(`Recipe/${id}`);
+  }
+
   add(data: any): Observable<IRecipesResponse> {
     return this.http.post<IRecipesResponse>(`Recipe/`, data);
   }

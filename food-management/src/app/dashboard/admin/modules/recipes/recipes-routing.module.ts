@@ -6,7 +6,8 @@ import { AddEditRecipeComponent } from './components/add-edit-recipe/add-edit-re
 const routes: Routes = [
 
   {path:'', component:ListRecipesComponent},
-  {path:'create', component:AddEditRecipeComponent}
+  {path:'create', component:AddEditRecipeComponent},
+  {path:'edit/:id', component:AddEditRecipeComponent}
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
