@@ -21,8 +21,8 @@ export class AddEditRecipeComponent implements OnInit {
   tags$!: Observable<Array<ILookupResponse>>;
   categories$!: Observable<IPagedResponse<ICategoriesResponse>>;
   files: File[] = [];
-  private recipeId: number| null;
-  private operationType : string | null;
+  recipeId: number| null;
+  mode : string | null;
 
   constructor(
     private fb: FormBuilder,
@@ -36,10 +36,9 @@ export class AddEditRecipeComponent implements OnInit {
 
   ) {
 
-    this.recipeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.operationType = this.activatedRoute.snapshot.queryParamMap.get('operationType');
-
-
+    const isHasId = this.activatedRoute.snapshot.paramMap.has('id');
+    this.recipeId =isHasId ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : null;
+    this.mode = this.activatedRoute.snapshot.queryParamMap.get('mode');
   }
 
   ngOnInit(): void {
@@ -49,6 +48,10 @@ export class AddEditRecipeComponent implements OnInit {
  
     if(this.recipeId !== null){
       this.getRecipeData();
+    }
+
+    if(this.mode === 'view'){
+      this.recipeForm.disable();
     }
   }
 

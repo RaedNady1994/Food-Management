@@ -1,3 +1,10 @@
+<div class="text-center">
+<h1 *ngIf="mode==='view'"> See details</h1>
+<h1 *ngIf="recipeId === null"> Add new recipe</h1>
+<h1 *ngIf="recipeId !== null && mode !=='view'"> Edit  recipe</h1>
+</div>
+
+
 <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()" class="w-75 mx-auto">
   <mat-form-field class="w-100">
     <mat-label>Recipe Name</mat-label>
@@ -46,5 +53,10 @@
     
   <mat-error *ngIf="recipeForm.get('recipeImage')?.invalid">Image is required</mat-error>
 
-  <button  class="btn btn-success" type="submit"> Save </button>
+  <div class="text-end">
+
+  <button *ngIf="mode !== 'view'" class="btn btn-success" type="submit"> Save </button>
+  <button class="btn btn-info" type="submit" [routerLink]="['/dashboard/admin/recipes']"> Back </button>
+</div>
+
 </form>
