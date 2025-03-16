@@ -15,6 +15,8 @@ import {
 } from 'rxjs';
 import { HelperService, ILookupResponse } from 'src/app/shared/helper.service';
 import { ICategoriesResponse, IGetCategoriesRequest } from '../../../categories/interfaces/icategory';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteItemComponent } from 'src/app/shared/delete-item/delete-item.component';
 
 @Component({
   selector: 'app-list-recipes',
@@ -43,7 +45,8 @@ export class ListRecipesComponent implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private toastr: ToastrService,
     private helperService: HelperService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+        private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -120,6 +123,34 @@ export class ListRecipesComponent implements OnInit, OnDestroy {
      this.categoryId = null;
      this.loadRecipes();
   }
+
+    openDeleteRecipeDialog(recipe: IRecipesResponse): void {
+      const dialogRef = this.dialog.open(DeleteItemComponent, {
+        width: '50%',
+        minWidth: '350px',
+        data: { elementType: 'Recipe', elementName: recipe.name },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result?.elementName) {
+          this.deleteRecipe(recipe.id);
+        }
+      });
+    }
+    deleteRecipe(id: number): void {
+      this.recipeService.delete(id).subscribe({
+        next: () => {
+          this.toastr.success('Recipe deleted successfully', 'Success');
+          this.loadRecipes(); 
+        },
+        error: (err) => {
+          this.toastr.error(
+            err?.error?.message || 'Error deleting recipe',
+            'Error'
+          );
+        },
+      });
+    }
 
   ngOnDestroy(): void {
     this.destroy$.next();

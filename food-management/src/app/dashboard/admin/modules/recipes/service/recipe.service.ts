@@ -40,6 +40,6 @@ export class RecipeService {
     return this.http.put<IRecipesResponse>(`Category/${id}`, data);
   }
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(`Category/${id}`);
+    return this.http.delete<any>(`Recipe/${id}`);
   }
 }
