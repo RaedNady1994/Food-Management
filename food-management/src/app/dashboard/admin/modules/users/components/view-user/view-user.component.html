@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>User Details</h2>
+<mat-dialog-content class="user-details">
+  <div class="user-info">
+    <img *ngIf="data.imagePath; else noImage" [src]="data.imagePath" alt="User Image" class="user-image">
+    <ng-template #noImage>
+      <p class="no-image">No Image Available</p>
+    </ng-template>
+  </div>
+
+  <table mat-table class="user-table">
+    <tr>
+      <td><strong>ID:</strong></td>
+      <td>{{ data.id }}</td>
+    </tr>
+    <tr>
+      <td><strong>Username:</strong></td>
+      <td>{{ data.userName }}</td>
+    </tr>
+    <tr>
+      <td><strong>Email:</strong></td>
+      <td>{{ data.email }}</td>
+    </tr>
+    <tr>
+      <td><strong>Country:</strong></td>
+      <td>{{ data.country }}</td>
+    </tr>
+    <tr>
+      <td><strong>Phone Number:</strong></td>
+      <td>{{ data.phoneNumber }}</td>
+    </tr>
+    <tr>
+      <td><strong>Group:</strong></td>
+      <td>{{ data.group.name }}</td>
+    </tr>
+    <tr>
+      <td><strong>Created At:</strong></td>
+      <td>{{ data.creationDate | date: 'medium' }}</td>
+    </tr>
+    <tr>
+      <td><strong>Last Modified:</strong></td>
+      <td>{{ data.modificationDate | date: 'medium' }}</td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

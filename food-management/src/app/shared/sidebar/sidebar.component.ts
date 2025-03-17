@@ -41,6 +41,18 @@ export class SidebarComponent {
         label: 'Categories',
         isVisible: this.isAdmin(),
       },
+      {
+        path: 'user/recipes',
+        icon: 'fa-solid fa-utensils',
+        label: 'Recipe',
+        isVisible: this.isUser(),
+      },
+      {
+        path: 'admin/favorite',
+        icon: 'fa-solid fa-favorite',
+        label: 'Favorite',
+        isVisible: this.isUser(),
+      },
     ];
   }
 

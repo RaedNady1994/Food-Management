@@ -14,9 +14,12 @@ const routes: Routes = [
   {
     path: 'recipes',
     loadChildren: () =>
-      import('./modules/recipes/recipes.module').then(
-        (m) => m.RecipesModule
-      ),
+      import('./modules/recipes/recipes.module').then((m) => m.RecipesModule),
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./modules/users/users.module').then((m) => m.UsersModule),
   },
 ];
 

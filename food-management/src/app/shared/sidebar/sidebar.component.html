@@ -1,19 +1,16 @@
 <section>
     <div>
         <img src="../../../assets/images/image-without-text.png" class="w-75 mx-auto">
-
     </div>
     <ul>
-
-        <li *ngFor="let item of navItems">
-            <ng-container *ngIf="item.isVisible">
-                <a [routerLink]="[item.path]" routerLinkActive="active"
-                 [routerLinkActiveOptions]="{exact: true}">
+        <ng-container *ngFor="let item of navItems">
+            <li *ngIf="item.isVisible">
+                <a [routerLink]="[item.path]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <span><i [class]="item.icon"></i></span>
                     <span class="mx-1">{{ item.label }}</span>
                 </a>
-            </ng-container>
-        </li>
+            </li>
+        </ng-container>
     </ul>
 
 </section>
