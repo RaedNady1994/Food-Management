@@ -1,1 +1,53 @@
-<p>favorite works!</p>
+<div class="view-toggle">
+    <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="View Mode">
+      <mat-button-toggle value="grid">
+        <mat-icon>grid_view</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="table">
+        <mat-icon>table_view</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  
+  <!-- Table View -->
+  <table *ngIf="viewMode === 'table'" class="recipe-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Tag</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fav of favoriteRecipes">
+        <td><img [src]="'https://upskilling-egypt.com:3006/' + fav.recipe.imagePath" alt="{{ fav.recipe.name }}" class="recipe-image"></td>
+        <td>{{ fav.recipe.name }}</td>
+        <td>{{ getCategoryNames(fav.recipe) }}</td>
+        <td>{{ fav.recipe.tag.name || 'N/A' }}</td>
+        <td>{{ fav.recipe.price | currency }}</td>
+        <td>
+          <button mat-icon-button class="favorite-icon" (click)="removeRecipe(fav.id)" matTooltip="Remove from favorites">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- Card View -->
+  <div *ngIf="viewMode === 'grid'" class="recipe-grid">
+    <div *ngFor="let fav of favoriteRecipes" class="recipe-card">
+      <button mat-icon-button class="unfavorite-btn favorite-icon" color="warn" (click)="removeRecipe(fav.id)" matTooltip="Remove from favorites">
+        <mat-icon >favorite</mat-icon>
+      </button>
+      <img [src]="'https://upskilling-egypt.com:3006/' + fav.recipe.imagePath" alt="{{ fav.recipe.name }}" class="recipe-image">
+      <h3>{{ fav.recipe.name }}</h3>
+      <p>{{ fav.recipe.description }}</p>
+      <span class="tag">{{ fav.recipe.tag.name || 'N/A' }}</span>
+      <span class="price">{{ fav.recipe.price | currency }}</span>
+    </div>
+  </div>
+  

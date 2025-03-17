@@ -17,6 +17,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 let declarationsArray = [SidebarComponent, NavbarComponent, DeleteItemComponent, SpinnerComponent];
@@ -24,6 +25,7 @@ let importsArray = [
   MatIconModule,
   MatMenuModule,
   MatButtonModule, 
+  MatButtonToggleModule,
   MatInputModule,
   MatFormFieldModule,
   MatProgressSpinnerModule,

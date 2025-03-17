@@ -17,9 +17,7 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
   styleUrls: ['./user-recipe.component.scss']
 })
 export class UserRecipeComponent implements OnInit, OnDestroy {
-AddToFavorite(_t76: IRecipesResponse) {
-throw new Error('Method not implemented.');
-}
+
 
   recipesResponse!: IPagedResponse<IRecipesResponse>;
   totalRecords = 0;
@@ -129,6 +127,19 @@ const dialogRef = this.dialog.open(ViewRecipeComponent, {
     });
   }
 
+  AddToFavorite(recipe: IRecipesResponse) {
+  this.recipeService.addToFav({recipeId: recipe.id}).subscribe({
+    next: () => {
+      this.toastr.success('Recipe added to fav successfully', 'Success');
+    },
+    error: (err) => {
+      this.toastr.error(
+        err?.error?.message || 'Error adding recipe to favorite',
+        'Error'
+      );
+    },
+  });
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
+ 
+ 
   constructor(private http: HttpClient) {}
 
   get(
@@ -34,6 +36,10 @@ export class RecipeService {
 
   add(data: any): Observable<IRecipesResponse> {
     return this.http.post<IRecipesResponse>(`Recipe/`, data);
+  }
+
+  addToFav(data: any) {
+    return this.http.post<IRecipesResponse>(`userRecipe/`, data);
   }
 
   update(id: number, data: any): Observable<IRecipesResponse> {
