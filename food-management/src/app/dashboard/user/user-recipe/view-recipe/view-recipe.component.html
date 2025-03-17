@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Recipe Details</h2>
+
+<mat-dialog-content class="recipe-details">
+  <div class="recipe-info">
+    <img *ngIf="data.imagePath; else noImage" [src]="'https://upskilling-egypt.com:3006/'+data.imagePath" alt="Recipe Image" class="recipe-image">
+    <ng-template #noImage>
+      <p class="no-image">No Image Available</p>
+    </ng-template>
+  </div>
+
+  <table mat-table class="recipe-table">
+    <tr>
+      <td><strong>ID:</strong></td>
+      <td>{{ data.id }}</td>
+    </tr>
+    <tr>
+      <td><strong>Name:</strong></td>
+      <td>{{ data.name }}</td>
+    </tr>
+    <tr>
+      <td><strong>Description:</strong></td>
+      <td>{{ data.description }}</td>
+    </tr>
+    <tr>
+      <td><strong>Price:</strong></td>
+      <td>{{ data.price | currency }}</td>
+    </tr>
+    <tr>
+      <td><strong>Category:</strong></td>
+      <td>{{ getCategoryNames() }}</td>
+    </tr>
+    <tr>
+      <td><strong>Tag:</strong></td>
+      <td>{{ getTagName() }}</td>
+    </tr>
+    <tr>
+      <td><strong>Created At:</strong></td>
+      <td>{{ data.creationDate | date: 'medium' }}</td>
+    </tr>
+    <tr>
+      <td><strong>Last Modified:</strong></td>
+      <td>{{ data.modificationDate | date: 'medium' }}</td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

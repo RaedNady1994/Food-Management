@@ -1,0 +1,41 @@
+.recipe-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .recipe-info {
+    text-align: center;
+  }
+  
+  .recipe-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .no-image {
+    color: gray;
+    font-style: italic;
+  }
+  
+  .recipe-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .recipe-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .recipe-table strong {
+    font-weight: bold;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

@@ -18,11 +18,6 @@
         <h3>Recipes Table</h3>
         <p>View Recipe details below</p>
       </div>
-      <div class="col-md-4 col-sm-12 text-center mt-2 mt-md-0">
-        <button class="btn btn-success" routerLink="create">
-          Add New Recipe
-        </button>
-      </div>
     </div>
   
     <div class="row mt-2">
@@ -94,15 +89,12 @@
                     <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Actions">
                       <mat-icon>more_vert</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item>
+                    <mat-menu #menu="matMenu" >
+                      <button mat-menu-item (click)="openViewRecipeDialog(recipe)">
                         <mat-icon>visibility</mat-icon> <span>View</span>
                       </button>
-                      <button mat-menu-item [routerLink]="['edit', recipe.id]" >
-                        <mat-icon>edit</mat-icon> <span>Edit</span>
-                      </button>
-                      <button class="text-danger" mat-menu-item>
-                        <mat-icon class="text-danger"> delete</mat-icon> <span>Delete</span>
+                      <button mat-menu-item (click)="AddToFavorite(recipe)">
+                        <mat-icon>favorite</mat-icon> <span>Add To Favorite</span>
                       </button>
                     </mat-menu>
                   </td>

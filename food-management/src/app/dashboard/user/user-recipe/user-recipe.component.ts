@@ -8,6 +8,8 @@ import { ILookupResponse, HelperService } from 'src/app/shared/helper.service';
 import { ICategoriesResponse, IGetCategoriesRequest } from '../../admin/modules/categories/interfaces/icategory';
 import { CategoryService } from '../../admin/modules/categories/services/category.service';
 import { RecipeService } from '../../admin/modules/recipes/service/recipe.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 @Component({
   selector: 'app-user-recipe',
@@ -15,6 +17,10 @@ import { RecipeService } from '../../admin/modules/recipes/service/recipe.servic
   styleUrls: ['./user-recipe.component.scss']
 })
 export class UserRecipeComponent implements OnInit, OnDestroy {
+AddToFavorite(_t76: IRecipesResponse) {
+throw new Error('Method not implemented.');
+}
+
   recipesResponse!: IPagedResponse<IRecipesResponse>;
   totalRecords = 0;
   pageSize = 10;
@@ -36,7 +42,8 @@ export class UserRecipeComponent implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private toastr: ToastrService,
     private helperService: HelperService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -112,6 +119,14 @@ export class UserRecipeComponent implements OnInit, OnDestroy {
      this.tagId = null;
      this.categoryId = null;
      this.loadRecipes();
+  }
+
+  openViewRecipeDialog(recipe: IRecipesResponse) {
+const dialogRef = this.dialog.open(ViewRecipeComponent, {
+      width: '50%',
+      minWidth: '350px',
+      data: recipe,
+    });
   }
 
   ngOnDestroy(): void {

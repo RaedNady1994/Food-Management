@@ -42,14 +42,14 @@ export class SidebarComponent {
         isVisible: this.isAdmin(),
       },
       {
-        path: 'user/recipes',
+        path: 'user/user-recipe',
         icon: 'fa-solid fa-utensils',
         label: 'Recipe',
         isVisible: this.isUser(),
       },
       {
-        path: 'admin/favorite',
-        icon: 'fa-solid fa-favorite',
+        path: 'user/favorite',
+        icon: 'fa-solid fa-heart',
         label: 'Favorite',
         isVisible: this.isUser(),
       },
